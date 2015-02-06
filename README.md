@@ -1,1 +1,1 @@
-# codesniffer
+# BetterCollective codesniffer
