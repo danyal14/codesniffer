@@ -45,3 +45,7 @@ Good example:
 <pre>
 $webServiceResult = 'Test'; 
 </pre>
+
+# Example
+
+A list of code example standars can be found in the file: BetterCollectiveCodeStandard/Documentation.html
