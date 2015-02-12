@@ -55,7 +55,7 @@ class BetterCollectiveCodeStandard_Sniffs_Files_FilenameSniff implements PHP_Cod
             return;
         }
 
-        if (strcmp($fileName, $className)) {
+        if (strcmp(strtolower($fileName), strtolower($className))) {
             $error = 'The classname is not equal to the filename; found "%s" as classname and "%s" for filename.';
             $data = array(
                         $className,
@@ -65,11 +65,11 @@ class BetterCollectiveCodeStandard_Sniffs_Files_FilenameSniff implements PHP_Cod
         }
 
         if (strtolower($fileName) === $fileName) {
-            $error = 'The filename has to be in UpperCamelCase; found "%s".';
+            $error = 'The filename has to be in lower casing; found "%s".';
             $data = array(
                         $fileName . '.php'
                     );
-            $phpcsFile->addError($error, $stackPtr, 'LowercaseFilename', $data);
+            $phpcsFile->addError($error, $stackPtr, 'NotLowercaseFilename', $data);
         }
 
         if ($tokens[$stackPtr]['code'] === T_INTERFACE) {
