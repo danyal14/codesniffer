@@ -258,9 +258,6 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DocCommentSniff implements 
                 if ($paramGroupid === null) {
                     $paramGroupid = $groupid;
                 }
-            } else if ($groupid === $paramGroupid) {
-                $error = 'Tag cannot be grouped with parameter tags in a doc comment';
-                $phpcsFile->addError($error, $tag, 'NonParamGroup');
             }//end if
 
             $tagGroups[$groupid][] = $tag;
