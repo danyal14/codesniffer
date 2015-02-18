@@ -64,7 +64,7 @@ class BetterCollectiveCodeStandard_Sniffs_Files_FilenameSniff implements PHP_Cod
             $phpcsFile->addError($error, $stackPtr, 'ClassnameNotEqualToFilename', $data);
         }
 
-        if (strtolower($fileName) === $fileName) {
+        if (strtolower($fileName) !== $fileName) {
             $error = 'The filename has to be in lower casing; found "%s".';
             $data = array(
                         $fileName . '.php'
