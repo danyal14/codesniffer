@@ -126,20 +126,6 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_ClassCommentSniff implement
             $error = 'There must be exactly one blank line before the %s comment';
             $phpcsFile->addError($error, $commentStart, 'SpacingBefore', $errorData);
         }
-
-        // Class doc comments should provide an @author tag
-        $hasAuthorTag = false;
-        foreach ($tokens[$commentStart]['comment_tags'] as $tag) {
-            if ($tokens[$tag]['content'] === '@author') {
-                $hasAuthorTag = true;
-                break;
-            }
-        }
-
-        if ($hasAuthorTag === false) {
-            $phpcsFile->addWarning('The doc comment on class level should provide an @author tag.', $commentStart, 'NoAuthorTag');
-        }
-
     }//end process()
 
 
