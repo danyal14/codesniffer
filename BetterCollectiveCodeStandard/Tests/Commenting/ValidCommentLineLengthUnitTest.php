@@ -13,6 +13,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @link      https://github.com/typo3-ci/TYPO3SniffPool
  */
+
 /**
  * Unit test class for the ValidCommentLineLength sniff.
  *
@@ -27,39 +28,39 @@
  */
 class BetterCollectiveCodeStandard_Tests_Commenting_ValidCommentLineLengthUnitTest extends AbstractSniffUnitTest
 {
-    /**
-     * Returns the lines where errors should occur.
-     *
-     * The key of the array should represent the line number and the value
-     * should represent the number of errors that should occur on that line.
-     *
-     * @return array(int => int)
-     */
-    public function getErrorList()
-    {
-        return array(
-                2 => 0,
-                3 => 0,
-                4 => 0,
-                6 => 0,
-                8 => 0,
-                );
-    }
+	/**
+	 * Returns the lines where errors should occur.
+	 *
+	 * The key of the array should represent the line number and the value
+	 * should represent the number of errors that should occur on that line.
+	 *
+	 * @return array(int => int)
+	 */
+	public function getErrorList()
+	{
+		return array(
+				2 => 0,
+				3 => 0,
+				4 => 0,
+				6 => 0,
+				8 => 0,
+				);
+	}
 
-    /**
-     * Returns the lines where warnings should occur.
-     *
-     * The key of the array should represent the line number and the value
-     * should represent the number of warnings that should occur on that line.
-     *
-     * @return array(int => int)
-     */
-    public function getWarningList()
-    {
-        return array(
-            5 => 1,
-            9 => 1,
-        );
-    }
+	/**
+	 * Returns the lines where warnings should occur.
+	 *
+	 * The key of the array should represent the line number and the value
+	 * should represent the number of warnings that should occur on that line.
+	 *
+	 * @return array(int => int)
+	 */
+	public function getWarningList()
+	{
+		return array(
+			5 => 1,
+			9 => 1,
+		);
+	}
 }
 ?>

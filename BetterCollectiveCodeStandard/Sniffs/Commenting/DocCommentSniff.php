@@ -331,14 +331,14 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DocCommentSniff implements 
 
         // The data type has to be declared in short form
         // integer -> int; boolean -> bool
-        $longTypes = array('boolean', 'integer');
-        $shortTypes = array('bool', 'int');
+        $longTypes = array('bool', 'int');
+        $shortTypes = array('boolean', 'integer');
         $fix = false;
         foreach ($tokens[$stackPtr]['comment_tags'] as $pos => $tag) {
             $dataType = $phpcsFile->findNext(T_DOC_COMMENT_STRING, $tag + 1);
             for ($i = 0; $i < count($longTypes); $i++) {
                 if (strpos($tokens[$dataType]['content'], $longTypes[$i]) !== FALSE) {
-                    $error = 'Use short form of data types; expected "%s" but found "%s".';
+                    $error = 'Use long form of data types; expected "%s" but found "%s".';
                     $data = array($shortTypes[$i], $longTypes[$i]);
                     $fix = $phpcsFile->addFixableError($error, $tag, 'UseShortDataType', $data);
                 }
