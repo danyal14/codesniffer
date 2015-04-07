@@ -101,7 +101,7 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_FunctionDocCommentSniff imp
      */
     public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
-        $find = array(T_COMMENT, T_DOC_COMMENT, T_CLASS, T_FUNCTION, T_OPEN_TAG,);
+        $find = array(T_COMMENT, T_DOC_COMMENT, T_CLASS, T_FUNCTION, T_OPEN_TAG);
         $commentEnd = $phpcsFile->findPrevious($find, ($stackPtr - 1));
         if ($commentEnd === false) {
             return;
@@ -115,8 +115,18 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_FunctionDocCommentSniff imp
             $error = 'You must use "/**" style comments for a function comment';
             $phpcsFile->addError($error, $stackPtr, 'WrongStyle');
             return;
-        } elseif ($code !== T_DOC_COMMENT) {
-            $phpcsFile->addError('Missing function doc comment', $stackPtr, 'Missing');
+        } else if ($code !== T_DOC_COMMENT) {
+            $excludedMethodNames = array('get', 'set', 'has');
+            $method = $phpcsFile->findNext(T_STRING, $stackPtr);
+            $methodName = $tokens[$method]['content'];
+            $methodPrefix = substr($methodName, 0, 3);
+            if (!in_array($methodPrefix, $excludedMethodNames)) {
+                $methodDocumentation = $phpcsFile->findPrevious(T_DOC_COMMENT_STRING, $method);
+                $methodDocumentationContent = $tokens[$methodDocumentation]['content'];
+                if ($methodDocumentationContent === '') {
+                    $phpcsFile->addError('Missing function doc comment', $stackPtr, 'Missing');
+                }
+            }
             return;
         }
         // If there is any code between the function keyword and the doc block

@@ -120,8 +120,14 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DocCommentSniff implements 
 
         // Check for a comment description.
         if ($tokens[$short]['code'] !== T_DOC_COMMENT_STRING) {
-            $error = 'Missing short description in doc comment';
-            $phpcsFile->addError($error, $stackPtr, 'MissingShort');
+            $excludedMethodNames = array('get', 'set', 'has');
+            $method = $phpcsFile->findNext(T_STRING, $stackPtr);
+            $methodName = $tokens[$method]['content'];
+            $methodPrefix = substr($methodName, 0, 3);
+            if (!in_array($methodPrefix, $excludedMethodNames)) {
+                $error = 'Missing short description in doc comment';
+                $phpcsFile->addError($error, $stackPtr, 'MissingShort');
+            }
             return;
         }
 
