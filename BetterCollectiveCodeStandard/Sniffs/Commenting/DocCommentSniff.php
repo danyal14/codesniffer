@@ -80,23 +80,29 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DocCommentSniff implements 
 
         // The first line of the comment should just be the /** code.
         if ($tokens[$short]['line'] === $tokens[$stackPtr]['line']) {
-            $error = 'The open comment tag must be the only content on the line';
-            $fix   = $phpcsFile->addFixableError($error, $stackPtr, 'ContentAfterOpen');
-            if ($fix === true) {
-                $phpcsFile->fixer->beginChangeset();
-                $phpcsFile->fixer->addNewline($stackPtr);
-                $phpcsFile->fixer->addContentBefore($short, '* ');
-                $phpcsFile->fixer->endChangeset();
+            $documentTag = $phpcsFile->findNext(T_DOC_COMMENT_TAG, $stackPtr);
+            if ($tokens[$documentTag]['content'] !== '@var') {
+                $error = 'The open comment tag must be the only content on the line';
+                $fix = $phpcsFile->addFixableError($error, $stackPtr, 'ContentAfterOpen');
+                if ($fix === true) {
+                    $phpcsFile->fixer->beginChangeset();
+                    $phpcsFile->fixer->addNewline($stackPtr);
+                    $phpcsFile->fixer->addContentBefore($short, '* ');
+                    $phpcsFile->fixer->endChangeset();
+                }
             }
         }
 
         // The last line of the comment should just be the */ code.
         $prev = $phpcsFile->findPrevious($empty, ($commentEnd - 1), $stackPtr, true);
         if ($tokens[$prev]['line'] === $tokens[$commentEnd]['line']) {
-            $error = 'The close comment tag must be the only content on the line';
-            $fix   = $phpcsFile->addFixableError($error, $commentEnd, 'ContentBeforeClose');
-            if ($fix === true) {
-                $phpcsFile->fixer->addNewlineBefore($commentEnd);
+            $documentTag = $phpcsFile->findNext(T_DOC_COMMENT_TAG, $stackPtr);
+            if ($tokens[$documentTag]['content'] !== '@var') {
+                $error = 'The close comment tag must be the only content on the line';
+                $fix = $phpcsFile->addFixableError($error, $commentEnd, 'ContentBeforeClose');
+                if ($fix === true) {
+                    $phpcsFile->fixer->addNewlineBefore($commentEnd);
+                }
             }
         }
 
