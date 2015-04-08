@@ -45,7 +45,7 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_ValidCommentLineLengthSniff
      */
     public function register()
     {
-        return array(T_DOC_COMMENT_STAR, T_COMMENT);
+        return array(T_COMMENT);
     }
 
     /**
@@ -61,10 +61,12 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_ValidCommentLineLengthSniff
     {
         $tokens = $phpcsFile->getTokens();
         $commentLine = $tokens[$stackPtr]['content'];
-        $lineEnd = $phpcsFile->findNext(T_DOC_COMMENT_WHITESPACE, $stackPtr + 1, null, false, $phpcsFile->eolChar);
+        $lineEnd = $phpcsFile->findNext(T_DOC_COMMENT_WHITESPACE, $stackPtr);
 
         for ($i = $stackPtr + 1; $i < $lineEnd; $i++) {
-            $commentLine .= $tokens[$i]['content'];
+            if ($tokens[$i]['type'] === T_COMMENT) {
+                $commentLine .= $tokens[$i]['content'];
+            }
         }
         $commentLength = strlen($commentLine);
 
