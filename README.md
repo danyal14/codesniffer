@@ -48,4 +48,4 @@ $webServiceResult = 'Test';
 
 # Example
 
-A list of code example standars can be found in the file: BetterCollectiveCodeStandard/Documentation.html
+A list of code example standards can be found in the file: BetterCollectiveCodeStandard/Documentation.html
