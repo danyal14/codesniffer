@@ -60,18 +60,13 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_ValidCommentLineLengthSniff
     public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $commentLine = $tokens[$stackPtr]['content'];
-        $lineEnd = $phpcsFile->findNext(T_DOC_COMMENT_WHITESPACE, $stackPtr);
+        $lineEnd = $phpcsFile->findNext(T_COMMENT, $stackPtr);
 
-        for ($i = $stackPtr + 1; $i < $lineEnd; $i++) {
-            if ($tokens[$i]['type'] === 'T_COMMENT') {
-                $commentLine .= $tokens[$i]['content'];
+        if ($tokens[$lineEnd]['type'] === 'T_COMMENT') {
+            $commentLength = strlen(trim($tokens[$lineEnd]['content']));
+            if ($commentLength > $this->maxCommentLength) {
+                $phpcsFile->addWarning('Comment lines should be kept within a limit of about ' . $this->maxCommentLength . ' characters but this comment has ' . $commentLength . ' character!', $stackPtr);
             }
-        }
-        $commentLength = strlen($commentLine);
-
-        if ($commentLength > $this->maxCommentLength) {
-            $phpcsFile->addWarning('Comment lines should be kept within a limit of about ' . $this->maxCommentLength . ' characters but this comment has ' . $commentLength . ' character!', $stackPtr);
         }
     }
 }
