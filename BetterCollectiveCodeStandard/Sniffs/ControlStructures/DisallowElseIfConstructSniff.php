@@ -34,7 +34,7 @@ class BetterCollectiveCodeStandard_Sniffs_ControlStructures_DisallowElseIfConstr
      */
     public function register()
     {
-        return array(T_ELSE);
+        return array(T_ELSEIF);
     }
 
     /**
@@ -48,9 +48,12 @@ class BetterCollectiveCodeStandard_Sniffs_ControlStructures_DisallowElseIfConstr
      */
     public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
-        $result = $phpcsFile->findNext(T_IF, ($stackPtr + 1), ($stackPtr + 3));
-        if ($result) {
-            $phpcsFile->addError('Usage of "ELSE IF" not allowed. Use "ELSEIF" instead.', $stackPtr);
+        $tokens = $phpcsFile->getTokens();
+        while (TRUE) {
+            if ($tokens[$stackPtr]['content'] === 'elseif') {
+                $phpcsFile->addError('Usage of "ELSEIF" not allowed. Use "ELSE IF" instead.', $stackPtr);
+                break;
+            }
         }
     }
 }
