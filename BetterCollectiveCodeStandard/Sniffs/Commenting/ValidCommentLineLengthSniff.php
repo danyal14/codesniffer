@@ -64,7 +64,7 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_ValidCommentLineLengthSniff
         $lineEnd = $phpcsFile->findNext(T_DOC_COMMENT_WHITESPACE, $stackPtr);
 
         for ($i = $stackPtr + 1; $i < $lineEnd; $i++) {
-            if ($tokens[$i]['type'] === T_COMMENT) {
+            if ($tokens[$i]['type'] === 'T_COMMENT') {
                 $commentLine .= $tokens[$i]['content'];
             }
         }
