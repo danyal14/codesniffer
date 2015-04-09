@@ -67,7 +67,7 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DoubleSlashCommentsInNewLin
      * // This is the found comment
      * => Returns false
      *
-     * @param array $tokens   Token arry with all tokens from the file which is checked
+     * @param array $tokens   Token array with all tokens from the file which is checked
      * @param int   $stackPtr Stackpointer where one of the registered token was found
      *
      * @return bool
