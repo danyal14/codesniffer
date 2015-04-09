@@ -1,0 +1,6 @@
+{
+	"name": "BetterCollective Codesniffer",
+	"type": "package",
+	"description": "A codesniffer package for BetterCollective",
+	"homepage": "http://bettercollective.com"
+}
