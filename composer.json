@@ -1,7 +1,7 @@
 {
-	"name": "BetterCollective Codesniffer",
-	"type": "package",
+	"name": "bettercollective/codesniffer",
 	"description": "A codesniffer package for BetterCollective",
 	"homepage": "http://bettercollective.com",
+	"type": "package",
 	"minimum-stability": "dev"
 }
