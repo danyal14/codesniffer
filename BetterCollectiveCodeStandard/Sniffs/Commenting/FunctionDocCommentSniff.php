@@ -111,11 +111,7 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_FunctionDocCommentSniff imp
         // If the token that we found was a class or a function, then this
         // function has no doc comment.
         $code = $tokens[$commentEnd]['code'];
-        if ($code === T_COMMENT) {
-            $error = 'You must use "/**" style comments for a function comment';
-            $phpcsFile->addError($error, $stackPtr, 'WrongStyle');
-            return;
-        } else if ($code !== T_DOC_COMMENT) {
+        if ($code !== T_DOC_COMMENT) {
             $excludedMethodNames = array('get', 'set', 'has');
             $method = $phpcsFile->findNext(T_STRING, $stackPtr);
             $methodName = $tokens[$method]['content'];
