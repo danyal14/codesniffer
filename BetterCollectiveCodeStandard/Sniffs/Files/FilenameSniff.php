@@ -40,10 +40,8 @@ class BetterCollectiveCodeStandard_Sniffs_Files_FilenameSniff implements PHP_Cod
 
         $stackPtr = $phpcsFile->findNext($findTokens, ($stackPtr + 1));
 
-        // Check if we hit a file without a class. Raise a warning and return
+        // Check if we hit a file without a class, return
         if (!$stackPtr) {
-            $warning = 'Its recommended to use only PHP classes and avoid non-class files.';
-            $phpcsFile->addWarning($warning, 1, 'Non-ClassFileFound');
             return;
         }
         $classNameToken = $phpcsFile->findNext(T_STRING, $stackPtr);
