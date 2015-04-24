@@ -265,6 +265,10 @@ class BetterCollectiveCodeStandard_Sniffs_Scope_AlwaysReturnSniff implements PHP
         }
 
         do {
+            if (isset($tokens[$startToken]['scope_opener']) === FALSE) {
+                return;
+            }
+
             $scopeOpener = $tokens[$startToken]['scope_opener'];
             $scopeCloser = $tokens[$startToken]['scope_closer'];
 
