@@ -131,8 +131,21 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DocCommentSniff implements 
             $methodName = $tokens[$method]['content'];
             $methodPrefix = substr($methodName, 0, 3);
             if (!in_array($methodPrefix, $excludedMethodNames)) {
-                $error = 'Missing short description in doc comment';
-                $phpcsFile->addError($error, $stackPtr, 'MissingShort');
+                $isVarAnnotation = FALSE;
+                $varAnnotation = $phpcsFile->findPrevious(T_DOC_COMMENT_OPEN_TAG, $method);
+                $varAnnotationToken = $tokens[$varAnnotation];
+                if (isset($varAnnotationToken['comment_tags']) && isset($varAnnotationToken['comment_tags'][0])) {
+                    $varToken = $tokens[$varAnnotationToken['comment_tags'][0]];
+                    if ($varToken['content'] === '@var') {
+                        $isVarAnnotation = TRUE;
+                    }
+                }
+
+                // Prevent that "var" inline annotation is interpreted as a PHP Doc
+                if ($isVarAnnotation === FALSE) {
+                    $error = 'Missing short description in doc comment';
+                    $phpcsFile->addError($error, $stackPtr, 'MissingShort');
+                }
             }
             return;
         }
