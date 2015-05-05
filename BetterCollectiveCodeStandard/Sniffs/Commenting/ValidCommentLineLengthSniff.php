@@ -29,7 +29,7 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_ValidCommentLineLengthSniff
      *
      * @var int
      */
-    protected $maxCommentLength = 80;
+    protected $maxCommentLength = 120;
 
     /**
      * A list of tokenizers this sniff supports
