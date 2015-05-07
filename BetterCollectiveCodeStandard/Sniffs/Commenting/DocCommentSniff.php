@@ -143,6 +143,10 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DocCommentSniff implements 
 
                 // Prevent that "var" inline annotation is interpreted as a PHP Doc
                 if ($isVarAnnotation === FALSE) {
+                    $protectedPropety = $phpcsFile->findNext(T_PROTECTED, $stackPtr);
+                    if (isset($tokens[$protectedPropety])) {
+                        return;
+                    }
                     $error = 'Missing short description in doc comment';
                     $phpcsFile->addError($error, $stackPtr, 'MissingShort');
                 }
