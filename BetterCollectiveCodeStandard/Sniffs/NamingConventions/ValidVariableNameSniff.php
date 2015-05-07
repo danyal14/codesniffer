@@ -114,11 +114,6 @@ class BetterCollectiveCodeStandard_Sniffs_NamingConventions_ValidVariableNameSni
             $error = 'Underscores are not allowed in the %svariablename "$%s".';
 
             switch($variableName) {
-            case '_POST':
-            case '_GET':
-                $messageData = array($variableName, $variableName);
-                $error = 'Direct access to "$%s" is not allowed; Please use t3lib_div::%s or t3lib_div::_GP instead';
-                break;
             default:
                 $messageData[] = $this->buildExampleVariableName($variableName);
                 $error.= 'Use lowerCamelCase for identifier instead e.g. "$%s"';
@@ -166,12 +161,8 @@ class BetterCollectiveCodeStandard_Sniffs_NamingConventions_ValidVariableNameSni
             return $result;
         }
 
-        // Get the tokens of the normal parenthesis of a foreach statement
-        // foreach *(* $variable as $key => $_ *)* {
-        $parenthesisStart = key($tokens[$stackPtr]['nested_parenthesis']);
-
         // Look for the foreach token
-        $forEachSearch = $phpcsFile->findPrevious(T_FOREACH, $parenthesisStart, null, false, null, true);
+        $forEachSearch = $phpcsFile->findPrevious(T_FOREACH, $stackPtr, null, false, null, true);
         if ($forEachSearch !== false) {
             $result = true;
         }
