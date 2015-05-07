@@ -51,6 +51,10 @@ class BetterCollectiveCodeStandard_Sniffs_Commenting_DoubleSlashCommentsInNewLin
         $tokens = $phpcsFile->getTokens();
         $keyword = $tokens[$stackPtr]['content'];
         if (substr($keyword, 0, 2) === '//' && $this->existsOtherCodeBeforeThisComment($tokens, $stackPtr)) {
+            $previousArray = $phpcsFile->findPrevious(T_ARRAY, $stackPtr);
+            if ($tokens[$previousArray]) {
+                return;
+            }
             $error = 'The double slash comments must be on a seperate line.';
             $phpcsFile->addError($error, $stackPtr);
         }

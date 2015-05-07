@@ -142,7 +142,6 @@ class BetterCollectiveCodeStandard_Sniffs_NamingConventions_ValidVariableNameSni
      * This kind of variable name is valid if this variable is
      * a) used as value part in a foreach loop
      * b) and not used in foreach body
-     * But this case is checked by TYPO3SniffPoo.ControlStructures.UnusedVariableInForEachLoop
      *
      * @param PHP_CodeSniffer_File $phpcsFile All the tokens found in the document.
      * @param int                  $stackPtr  The position of the current token in
