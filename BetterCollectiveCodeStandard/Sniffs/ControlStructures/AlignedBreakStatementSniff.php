@@ -61,8 +61,6 @@ class BetterCollectiveCodeStandard_Sniffs_ControlStructures_AlignedBreakStatemen
             if ($tokens[$stackPtr]['column'] != ($tokens[$checkTokenIndex]['column'] - 1)) {
                 $phpcsFile->addError('Break Statement must have the same indent than the scope.', $stackPtr);
             }
-        } elseif ($tokens[$stackPtr]['column'] != ($tokens[$checkTokenIndex]['column'] + 1)) {
-            $phpcsFile->addError('Break Statement must have the same indent than the scope.', $stackPtr);
         }
     }
 }
