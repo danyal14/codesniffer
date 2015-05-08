@@ -169,9 +169,11 @@ class BetterCollectiveCodeStandard_Sniffs_Scope_AlwaysReturnSniff implements PHP
 
         // Check if the last return statement got only "natural" conditions, like classes or functions
         $gotClassCondition = $phpcsFile->hasCondition($lastReturnStatement, T_CLASS);
+        $gotTraitCondition = $phpcsFile->hasCondition($lastReturnStatement, T_TRAIT);
         $gotFunctionCondition = $phpcsFile->hasCondition($lastReturnStatement, T_FUNCTION);
         if ((count($tokens[$lastReturnStatement]['conditions']) === 1 && $gotFunctionCondition)
             || (count($tokens[$lastReturnStatement]['conditions']) === 2 && $gotClassCondition && $gotFunctionCondition)
+            || ($gotTraitCondition === true)
         ) {
             return;
         }
@@ -190,7 +192,7 @@ class BetterCollectiveCodeStandard_Sniffs_Scope_AlwaysReturnSniff implements PHP
 
     /**
      * This method is the last fallback of this sniff.
-     * If the function / method got no return statement outsie of a control structure,
+     * If the function / method got no return statement outside of a control structure,
      * this one will check if every possible way got a return statement.
      * If yes, it returns true.
      * Otherwise no.
