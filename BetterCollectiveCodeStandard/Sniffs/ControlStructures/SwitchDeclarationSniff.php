@@ -144,23 +144,6 @@ class BetterCollectiveCodeStandard_Sniffs_ControlStructures_SwitchDeclarationSni
                 );
             }
 
-            // Falling through a case have to be indicated by a comment
-            $afterNextCase = $phpcsFile->findNext(T_CASE, $nextCase + 1);
-            if (($afterNextCase)
-                && ($type !== 'Default')
-                && (($tokens[$nextCase]['scope_closer']) === ($tokens[$afterNextCase]['scope_closer']))
-            ) {
-                $commentBeforeCase = $phpcsFile->findPrevious(
-                    T_COMMENT, $afterNextCase, $nextCase
-                );
-                if (($tokens[$commentBeforeCase]['line']) !== ($tokens[$afterNextCase]['line'] - 1)) {
-                    $error = 'If one case block has to pass control into another case block without having a break, there must be a comment about it in the code.';
-                    $phpcsFile->addError(
-                        $error, $nextCase, 'CaseWithoutBreakNoCommentFound'
-                    );
-                }
-            }
-
             $nextBreak = $tokens[$nextCase]['scope_closer'];
             if ($type === 'Default') {
 
