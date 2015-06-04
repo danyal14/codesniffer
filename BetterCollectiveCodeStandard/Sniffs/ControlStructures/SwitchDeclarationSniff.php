@@ -147,26 +147,6 @@ class BetterCollectiveCodeStandard_Sniffs_ControlStructures_SwitchDeclarationSni
             $nextBreak = $tokens[$nextCase]['scope_closer'];
             if ($type === 'Default') {
 
-                // Check if the default statement scope include a break statement
-                if ($tokens[$nextBreak]['code'] === T_BREAK) {
-                    $error = 'The "default" statement must not have a "break" statement.';
-                    $phpcsFile->addError($error, $nextCase, 'DefaultNoBreak');
-
-                    // Check if the default statement is not the last statement in switch
-                    // If the default contains a throw, exit, continue or return statement
-                    // this will be chosen as scope_closer
-                    // But the default statement can contain a such statements
-                } elseif (($tokens[$nextCase]['scope_closer'] !== $switch['scope_closer'])
-                    && $tokens[$tokens[$nextCase]['scope_closer']]['code'] !== T_THROW
-                    && $tokens[$tokens[$nextCase]['scope_closer']]['code'] !== T_EXIT
-                    && $tokens[$tokens[$nextCase]['scope_closer']]['code'] !== T_CONTINUE
-                    && $tokens[$tokens[$nextCase]['scope_closer']]['code'] !== T_RETURN
-                ) {
-
-                    $error = 'The "default" statement must be the last in the switch.';
-                    $phpcsFile->addError($error, $nextCase, 'DefaultNotLastInSwitch');
-                }
-
             } else if ($tokens[$nextBreak]['code'] === T_BREAK
                 || $tokens[$nextBreak]['code'] === T_RETURN
                 || $tokens[$nextBreak]['code'] === T_CONTINUE
