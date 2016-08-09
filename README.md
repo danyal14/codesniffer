@@ -1,4 +1,4 @@
-# BetterCollective codesniffer
+# Common codesniffer
 
 This repository contains the ruleset and codesniffer standard that is used when developing. The codesniffer will check all kind of file types an example list is:
 
